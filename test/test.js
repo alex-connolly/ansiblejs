@@ -97,4 +97,12 @@ describe('#ansible', function() {
         var state = ansible.hexToBytes("0000000000000000000000000000000000000000000000000000000000000001");
         expect(state.length).to.equal(32);
     });
+    it('should set and get address without offset', function() {
+        var address = 'ffffffffffffffffffffffffffffffffffffffff';
+        var state = [];
+        state = ansible.setAddress(state, address, 0)
+        var result = ansible.getAddress(state, 0);
+
+        expect(result).to.deep.equal(address);
+    });
 });

@@ -40,7 +40,7 @@ var getBytes = function(num) {
 
 var setUint = function(bytes, num, offset, byte_size) {
     var toInsert = getBytes(num);
-    bytes.splice(offset, byte_size, toInsert);
+    bytes.splice(offset, byte_size, ...toInsert);
     return bytes;
 };
 
@@ -69,8 +69,16 @@ var setUint256 = function(bytes, num, offset) {
 };
 
 var getAddress = function(bytes, offset) {
-
+    // addresses are 20-byte hex strings
+    var chunk = bytes.slice(offset, offset + 20);
+    return bytesToHex(chunk);
 };
+
+var setAddress = function(bytes, address, offset) {
+    var toInsert = hexToBytes(address);
+    bytes.splice(offset, 20, ...toInsert);
+    return bytes;
+}
 
 // from crypto-js
 function bytesToHex(bytes) {
@@ -104,5 +112,6 @@ module.exports = {
     setUint128: setUint128,
     setUint256: setUint256,
     getAddress: getAddress,
+    setAddress: setAddress,
     hexToBytes: hexToBytes
 };
