@@ -33,42 +33,44 @@ var getUint256 = function(bytes, offset) {
     return getUint(bytes, offset, 32);
 };
 
-var getUintArray = function(bytes, offset, byte_size, size) {
+var getUintArray = function(bytes, length, offset, byte_size) {
     var numbers = [];
-    for (var i = 0; i < size; i++) {
-        var u = getUint(bytes, offset, byte_size);
+    for (var i = 0; i < length; i++) {
+        var off = offset + (i * byte_size);
+        var u = getUint(bytes, off, byte_size);
         numbers.push(u);
     }
     return numbers;
 };
 
-var getUint8Array = function(bytes, offset, size) {
-    return getUintArray(bytes, offset, 1, size);
+var getUint8Array = function(bytes, length, offset) {
+    return getUintArray(bytes, length, offset, 1);
 };
 
-var getUint16Array = function(bytes, offset, size) {
-    return getUintArray(bytes, offset, 2, size);
+var getUint16Array = function(bytes, length, offset) {
+    return getUintArray(bytes, length, offset, 2);
 };
 
-var getUint32Array = function(bytes, offset, size) {
-    return getUintArray(bytes, offset, 4, size);
+var getUint32Array = function(bytes, length, offset) {
+    return getUintArray(bytes, length, offset, 4);
 };
 
-var getUint64Array = function(bytes, offset, size) {
-    return getUintArray(bytes, offset, 8, size);
+var getUint64Array = function(bytes, length, offset) {
+    return getUintArray(bytes, length, offset, 8);
 };
 
-var getUint128Array = function(bytes, offset, size) {
-    return getUintArray(bytes, offset, 16, size);
+var getUint128Array = function(bytes, length, offset) {
+    return getUintArray(bytes, length, offset, 16);
 };
 
-var getUint256Array = function(bytes, offset, size) {
-    return getUintArray(bytes, offset, 32, size);
+var getUint256Array = function(bytes, length, offset) {
+    return getUintArray(bytes, length, offset, 32);
 };
 
 var getBytes = function(num) {
     var hex = num.toString(16);
-    return hexToBytes(hex);
+    var bytes = hexToBytes(hex);
+    return bytes;
 };
 
 var setUint = function(bytes, num, offset, byte_size) {
@@ -103,7 +105,8 @@ var setUint256 = function(bytes, num, offset) {
 
 var setUintArray = function(bytes, numbers, offset, byte_size) {
     for (var i = 0; i < numbers.length; i++) {
-        bytes = setUint(bytes, numbers[i], offset + (i * byte_size), byte_size);
+        var off = offset + (i * byte_size);
+        bytes = setUint(bytes, numbers[i], off, byte_size);
     }
     return bytes;
 };
@@ -143,6 +146,24 @@ var setAddress = function(bytes, address, offset) {
     bytes.splice(offset, 20, ...toInsert);
     return bytes;
 }
+
+var getAddressArray = function(bytes, length, offset) {
+    var addresses = [];
+    for (var i = 0; i < length; i++) {
+        var off = offset + (i * 20);
+        var a = getAddress(bytes, off);
+        addresses.push(a);
+    }
+    return addresses;
+};
+
+var setAddressArray = function(bytes, addresses, offset) {
+    for (var i = 0; i < addresses.length; i++) {
+        var off = offset + (i * 20);    
+        bytes = setAddress(bytes, addresses[i], off);
+    }
+    return bytes;
+};
 
 // from crypto-js
 function bytesToHex(bytes) {
@@ -189,5 +210,8 @@ module.exports = {
     setUint256Array: setUint256Array,
     getAddress: getAddress,
     setAddress: setAddress,
-    hexToBytes: hexToBytes
+    getAddressArray: getAddressArray,
+    setAddressArray: setAddressArray,
+    hexToBytes: hexToBytes,
+    bytesToHex: bytesToHex
 };

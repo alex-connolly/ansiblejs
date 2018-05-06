@@ -109,8 +109,8 @@ describe('#ansible', function() {
     it('should get/set uint8 array of big numbers without offset', function() {
         var state = [];
         var numbers = [new BigNumber(1), new BigNumber(2), new BigNumber(3)];
-        ansible.setUint8Array(state, numbers);
-        var result = ansible.getUint8Array(state, 0, numbers.length);
+        ansible.setUint8Array(state, numbers, 0);
+        var result = ansible.getUint8Array(state, numbers.length, 0);
         for (var i = 0; i < numbers.length; i++) {
             var res = result[i].toNumber();
             var num = numbers[i].toNumber();
@@ -121,13 +121,38 @@ describe('#ansible', function() {
     it('should get/set uint8 array of numbers without offset', function() {
         var state = [];
         var numbers = [1, 2, 3];
-        ansible.setUint8Array(state, numbers);
-        var result = ansible.getUint8Array(state, 0, numbers.length);
+        ansible.setUint8Array(state, numbers, 0);
+        var result = ansible.getUint8Array(state, numbers.length, 0);
+
         for (var i = 0; i < numbers.length; i++) {
             var num = numbers[i];
             var res = result[i];
             expect(num).to.equal(res.toNumber());
         }
+    });
+
+    it('should get/set address array without offset', function() {
+        var state = [];
+        var addresses = [
+            'ffffffffffffffffffffffffffffffffffffffff',
+            '0000000000000000000000000000000000000000',
+            'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        ];
+        ansible.setAddressArray(state, addresses, 0);
+        var result = ansible.getAddressArray(state, addresses.length, 0);
+        expect(result).deep.to.equal(addresses);
+    });
+
+    it('should get/set address array without offset', function() {
+        var state = ansible.hexToBytes("01");
+        var addresses = [
+            'ffffffffffffffffffffffffffffffffffffffff',
+            '0000000000000000000000000000000000000000',
+            'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        ];
+        ansible.setAddressArray(state, addresses, 1);
+        var result = ansible.getAddressArray(state, addresses.length, 1);
+        expect(result).deep.to.equal(addresses);
     });
 
 });
