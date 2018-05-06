@@ -2,45 +2,51 @@
 
 var expect = require('chai').expect;
 var ansible = require('../index');
+var BigNumber = require('bignumber.js');
 
 describe('#ansible', function() {
-    it('should convert single digits', function() {
-        var result = numFormatter(1);
-        expect(result).to.equal('1');
+    it('should convert uint8s without offset', function() {
+        var state = ansible.hexToBytes("01");
+        expect(state.length).to.equal(1);
+        var result = ansible.getUint8(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
     });
-
-    it('should convert double digits', function() {
-        var result = numFormatter(12);
-        expect(result).to.equal('12');
+    it('should convert uint8s with offset', function() {
+        var state = ansible.hexToBytes("0001");
+        var result = ansible.getUint8(state, 1);
+        expect(result.isEqualTo(1)).to.equal(true);
     });
-
-    it('should convert triple digits', function() {
-        var result = numFormatter(123);
-        expect(result).to.equal('123');
+    it('should convert uint16s without offset', function() {
+        var state = ansible.hexToBytes("0001");
+        var result = ansible.getUint16(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
     });
-
-    it('should convert 4 digits', function() {
-        var result = numFormatter(1234);
-        expect(result).to.equal('1,234');
+    it('should convert uint32s without offset', function() {
+        var state = ansible.hexToBytes("00000001");
+        expect(state.length).to.equal(4);
+        var result = ansible.getUint32(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
     });
-
-    it('should convert 5 digits', function() {
-        var result = numFormatter(12345);
-        expect(result).to.equal('12,345');
+    it('should convert uint64s without offset', function() {
+        var state = ansible.hexToBytes("0000000000000001");
+        expect(state.length).to.equal(8);
+        var result = ansible.getUint64(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
     });
-
-    it('should convert 6 digits', function() {
-        var result = numFormatter(123456);
-        expect(result).to.equal('123,456');
+    it('should convert uint128s without offset', function() {
+        var state = ansible.hexToBytes("00000000000000000000000000000001");
+        expect(state.length).to.equal(16);
+        var result = ansible.getUint128(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
     });
-
-    it('should convert 7 digits', function() {
-        var result = numFormatter(1234567);
-        expect(result).to.equal('1,234,567');
+    it('should convert uint256s without offset', function() {
+        var state = ansible.hexToBytes("0000000000000000000000000000000000000000000000000000000000000001");
+        expect(state.length).to.equal(32);
+        var result = ansible.getUint256(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
     });
-
-    it('should convert 8 digits', function() {
-        var result = numFormatter(12345678);
-        expect(result).to.equal('12,345,678');
+    it('should convert hex strings to bytes', function() {
+        var state = ansible.hexToBytes("0000000000000000000000000000000000000000000000000000000000000001");
+        expect(state.length).to.equal(32);
     });
 });
