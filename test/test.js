@@ -5,43 +5,91 @@ var ansible = require('../index');
 var BigNumber = require('bignumber.js');
 
 describe('#ansible', function() {
-    it('should convert uint8s without offset', function() {
+    it('should get uint8s without offset', function() {
         var state = ansible.hexToBytes("01");
         expect(state.length).to.equal(1);
         var result = ansible.getUint8(state, 0);
         expect(result.isEqualTo(1)).to.equal(true);
     });
-    it('should convert uint8s with offset', function() {
+    it('should get uint8s with offset', function() {
         var state = ansible.hexToBytes("0001");
         var result = ansible.getUint8(state, 1);
         expect(result.isEqualTo(1)).to.equal(true);
     });
-    it('should convert uint16s without offset', function() {
+    it('should get uint16s without offset', function() {
         var state = ansible.hexToBytes("0001");
         var result = ansible.getUint16(state, 0);
         expect(result.isEqualTo(1)).to.equal(true);
     });
-    it('should convert uint32s without offset', function() {
+    it('should get uint32s without offset', function() {
         var state = ansible.hexToBytes("00000001");
         expect(state.length).to.equal(4);
         var result = ansible.getUint32(state, 0);
         expect(result.isEqualTo(1)).to.equal(true);
     });
-    it('should convert uint64s without offset', function() {
+    it('should get uint64s without offset', function() {
         var state = ansible.hexToBytes("0000000000000001");
         expect(state.length).to.equal(8);
         var result = ansible.getUint64(state, 0);
         expect(result.isEqualTo(1)).to.equal(true);
     });
-    it('should convert uint128s without offset', function() {
+    it('should get uint128s without offset', function() {
         var state = ansible.hexToBytes("00000000000000000000000000000001");
         expect(state.length).to.equal(16);
         var result = ansible.getUint128(state, 0);
         expect(result.isEqualTo(1)).to.equal(true);
     });
-    it('should convert uint256s without offset', function() {
+    it('should get uint256s without offset', function() {
         var state = ansible.hexToBytes("0000000000000000000000000000000000000000000000000000000000000001");
         expect(state.length).to.equal(32);
+        var result = ansible.getUint256(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should set uint8s without offset', function() {
+        var state = ansible.hexToBytes("01");
+        expect(state.length).to.equal(1);
+        var result = ansible.getUint8(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should set uint8s with offset', function() {
+        var num = new BigNumber(1);
+        var state = [];
+        state = ansible.setUint8(state, num, 0)
+        var result = ansible.getUint8(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should set uint16s without offset', function() {
+        var num = new BigNumber(1);
+        var state = [];
+        state = ansible.setUint16(state, num, 0)
+        var result = ansible.getUint16(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should convert uint32s without offset', function() {
+        var num = new BigNumber(1);
+        var state = [];
+        state = ansible.setUint32(state, num, 0)
+        var result = ansible.getUint32(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should set uint64s without offset', function() {
+        var num = new BigNumber(1);
+        var state = [];
+        state = ansible.setUint64(state, num, 0)
+        var result = ansible.getUint64(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should set uint128s without offset', function() {
+        var num = new BigNumber(1);
+        var state = [];
+        state = ansible.setUint128(state, num, 0)
+        var result = ansible.getUint128(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should set uint256s without offset', function() {
+        var num = new BigNumber(1);
+        var state = [];
+        state = ansible.setUint256(state, num, 0)
         var result = ansible.getUint256(state, 0);
         expect(result.isEqualTo(1)).to.equal(true);
     });
