@@ -105,4 +105,29 @@ describe('#ansible', function() {
 
         expect(result).to.deep.equal(address);
     });
+
+    it('should get/set uint8 array of big numbers without offset', function() {
+        var state = [];
+        var numbers = [new BigNumber(1), new BigNumber(2), new BigNumber(3)];
+        ansible.setUint8Array(state, numbers);
+        var result = ansible.getUint8Array(state, 0, numbers.length);
+        for (var i = 0; i < numbers.length; i++) {
+            var res = result[i].toNumber();
+            var num = numbers[i].toNumber();
+            expect(num).to.equal(res);
+        }
+    });
+
+    it('should get/set uint8 array of numbers without offset', function() {
+        var state = [];
+        var numbers = [1, 2, 3];
+        ansible.setUint8Array(state, numbers);
+        var result = ansible.getUint8Array(state, 0, numbers.length);
+        for (var i = 0; i < numbers.length; i++) {
+            var num = numbers[i];
+            var res = result[i];
+            expect(num).to.equal(res.toNumber());
+        }
+    });
+
 });
