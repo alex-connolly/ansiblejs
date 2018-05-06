@@ -1,0 +1,21 @@
+{
+  "name": "ansiblejs",
+  "version": "0.1.0",
+  "description": "Utility functions for use in Ansible projects. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "keywords": [
+    "ethereum",
+    "ansible",
+    "ansiblejs",
+    "web3"
+  ],
+  "author": "Alex Connolly <alexconnollyender@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1"
+  }
+}
