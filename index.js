@@ -103,6 +103,11 @@ var setUint256 = function(bytes, num, offset) {
     return setUint(bytes, num, offset, 32);
 };
 
+
+
+
+
+
 var setUintArray = function(bytes, numbers, offset, byte_size) {
     for (var i = 0; i < numbers.length; i++) {
         var off = offset + (i * byte_size);
@@ -159,10 +164,66 @@ var getAddressArray = function(bytes, length, offset) {
 
 var setAddressArray = function(bytes, addresses, offset) {
     for (var i = 0; i < addresses.length; i++) {
-        var off = offset + (i * 20);    
+        var off = offset + (i * 20);
         bytes = setAddress(bytes, addresses[i], off);
     }
     return bytes;
+};
+
+var appendUint8 = function(bytes, num) {
+    return setUint128(bytes, num, bytes.length);
+};
+
+var appendUint16 = function(bytes, num) {
+    return setUint128(bytes, num, bytes.length);
+};
+
+var appendUint32 = function(bytes, num) {
+    return setUint128(bytes, num, bytes.length);
+};
+
+var appendUint64 = function(bytes, num) {
+    return setUint128(bytes, num, bytes.length);
+};
+
+var appendUint128 = function(bytes, num) {
+    return setUint128(bytes, num, bytes.length);
+};
+
+var appendUint256 = function(bytes, num) {
+    return setUint256(bytes, num, bytes.length);
+};
+
+var appendUint8Array = function(bytes, numbers) {
+    return setUint8Array(bytes, numbers, bytes.length);
+};
+
+var appendUint16Array = function(bytes, numbers) {
+    return setUint16Array(bytes, numbers, bytes.length);
+};
+
+var appendUint32Array = function(bytes, numbers) {
+    return setUint32Array(bytes, numbers, bytes.length);
+};
+
+var appendUint64Array = function(bytes, numbers) {
+    return setUint64Array(bytes, numbers, bytes.length);
+};
+
+var appendUint128Array = function(bytes, numbers) {
+    return setUint128Array(bytes, numbers, bytes.length);
+};
+
+var appendUint256Array = function(bytes, numbers) {
+    return setUint256Array(bytes, numbers, bytes.length);
+};
+
+var appendAddress = function(bytes, address) {
+    return setAddress(bytes, address, bytes.length);
+}
+
+var appendAddressArray = function(bytes, addresses) {
+    return setAddressArray(bytes, addresses, bytes.length);
 };
 
 // from crypto-js
@@ -196,6 +257,8 @@ module.exports = {
     getUint64Array: getUint64Array,
     getUint128Array: getUint128Array,
     getUint256Array: getUint256Array,
+    getAddress: getAddress,
+    getAddressArray: getAddressArray,
     setUint8: setUint8,
     setUint16: setUint16,
     setUint32: setUint32,
@@ -208,10 +271,26 @@ module.exports = {
     setUint64Array: setUint64Array,
     setUint128Array: setUint128Array,
     setUint256Array: setUint256Array,
-    getAddress: getAddress,
     setAddress: setAddress,
-    getAddressArray: getAddressArray,
     setAddressArray: setAddressArray,
+
+    appendUint8: appendUint8,
+    appendUint16: appendUint16,
+    appendUint32: appendUint32,
+    appendUint64: appendUint64,
+    appendUint128: appendUint128,
+    appendUint256: appendUint256,
+    appendUint8Array: appendUint8Array,
+    appendUint16Array: appendUint16Array,
+    appendUint32Array: appendUint32Array,
+    appendUint64Array: appendUint64Array,
+    appendUint128Array: appendUint128Array,
+    appendUint256Array: appendUint256Array,
+    appendAddress: appendAddress,
+    appendAddressArray: appendAddressArray,
+
+
+
     hexToBytes: hexToBytes,
     bytesToHex: bytesToHex
 };

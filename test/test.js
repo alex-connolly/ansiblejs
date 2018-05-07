@@ -143,7 +143,7 @@ describe('#ansible', function() {
         expect(result).deep.to.equal(addresses);
     });
 
-    it('should get/set address array without offset', function() {
+    it('should get/set address array with offset', function() {
         var state = ansible.hexToBytes("01");
         var addresses = [
             'ffffffffffffffffffffffffffffffffffffffff',
@@ -153,6 +153,104 @@ describe('#ansible', function() {
         ansible.setAddressArray(state, addresses, 1);
         var result = ansible.getAddressArray(state, addresses.length, 1);
         expect(result).deep.to.equal(addresses);
+    });
+
+    it('should append uint8s without offset', function() {
+        var num = new BigNumber(1);
+        var state = [];
+        state = ansible.appendUint8(state, num);
+        var result = ansible.getUint8(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should append uint16s without offset', function() {
+        var num = new BigNumber(1);
+        var state = [];
+        state = ansible.appendUint16(state, num);
+        var result = ansible.getUint16(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should append uint32s without offset', function() {
+        var num = new BigNumber(1);
+        var state = [];
+        state = ansible.appendUint32(state, num);
+        var result = ansible.getUint32(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should append uint64s without offset', function() {
+        var num = new BigNumber(1);
+        var state = [];
+        state = ansible.appendUint64(state, num);
+        var result = ansible.getUint64(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should append uint128s without offset', function() {
+        var num = new BigNumber(1);
+        var state = [];
+        state = ansible.appendUint128(state, num);
+        var result = ansible.getUint128(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should append uint256s without offset', function() {
+        var num = new BigNumber(1);
+        var state = [];
+        state = ansible.appendUint256(state, num)
+        var result = ansible.getUint256(state, 0);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+
+    it('should append uint8s with offset', function() {
+        var num = new BigNumber(1);
+        var state = ansible.hexToBytes("02");
+        state = ansible.appendUint8(state, num)
+        var result = ansible.getUint8(state, 0);
+        expect(result.isEqualTo(2)).to.equal(true);
+        result = ansible.getUint8(state, 1);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should append uint16s with offset', function() {
+        var num = new BigNumber(1);
+        var state = ansible.hexToBytes("02");
+        state = ansible.appendUint16(state, num)
+        var result = ansible.getUint8(state, 0);
+        expect(result.isEqualTo(2)).to.equal(true);
+        result = ansible.getUint16(state, 1);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should append uint32s with offset', function() {
+        var num = new BigNumber(1);
+        var state = ansible.hexToBytes("02");
+        state = ansible.appendUint32(state, num)
+        var result = ansible.getUint8(state, 0);
+        expect(result.isEqualTo(2)).to.equal(true);
+        result = ansible.getUint32(state, 1);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should append uint64s with offset', function() {
+        var num = new BigNumber(1);
+        var state = ansible.hexToBytes("02");
+        state = ansible.appendUint64(state, num)
+        var result = ansible.getUint8(state, 0);
+        expect(result.isEqualTo(2)).to.equal(true);
+        result = ansible.getUint64(state, 1);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should append uint128s with offset', function() {
+        var num = new BigNumber(1);
+        var state = ansible.hexToBytes("02");
+        state = ansible.appendUint128(state, num)
+        var result = ansible.getUint8(state, 0);
+        expect(result.isEqualTo(2)).to.equal(true);
+        result = ansible.getUint128(state, 1);
+        expect(result.isEqualTo(1)).to.equal(true);
+    });
+    it('should append uint256s with offset', function() {
+        var num = new BigNumber(1);
+        var state = ansible.hexToBytes("02");
+        state = ansible.appendUint256(state, num)
+        var result = ansible.getUint8(state, 0);
+        expect(result.isEqualTo(2)).to.equal(true);
+        result = ansible.getUint256(state, 1);
+        expect(result.isEqualTo(1)).to.equal(true);
     });
 
 });
