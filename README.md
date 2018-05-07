@@ -13,3 +13,10 @@ var ansible = require("ansiblejs");
 ```
 
 ## Usage
+
+Currently supports:
+
+- uint types
+- addresses
+
+ansiblejs also supports arrays of the above types. 
