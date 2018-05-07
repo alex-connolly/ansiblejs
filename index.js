@@ -259,6 +259,7 @@ module.exports = {
     getUint256Array: getUint256Array,
     getAddress: getAddress,
     getAddressArray: getAddressArray,
+
     setUint8: setUint8,
     setUint16: setUint16,
     setUint32: setUint32,
