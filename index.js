@@ -226,6 +226,12 @@ var appendAddressArray = function(bytes, addresses) {
     return setAddressArray(bytes, addresses, bytes.length);
 };
 
+var appendBytes = function(bytes, toAppend) {
+    var offset = bytes.length
+    bytes.splice(offset, offset + toAppend.length, ...toAppend);
+    return bytes;
+}
+
 // TODO: check carefully that this is secure/works correctly
 // https://github.com/ethereum/web3.js/issues/1490 etc
 function getRandomBytes(size) {
@@ -306,6 +312,7 @@ module.exports = {
     appendUintArray: appendUint256Array,
     appendAddress: appendAddress,
     appendAddressArray: appendAddressArray,
+    appendBytes: appendBytes,
 
     getRandomBytes: getRandomBytes,
 

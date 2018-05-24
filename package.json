@@ -1,6 +1,6 @@
 {
   "name": "ansiblejs",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Utility functions for use in Ansible projects. ",
   "main": "index.js",
   "scripts": {

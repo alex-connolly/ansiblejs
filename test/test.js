@@ -253,4 +253,14 @@ describe('#ansible', function() {
         expect(result.isEqualTo(1)).to.equal(true);
     });
 
+    it('should append byte arrays', function() {
+        var toAppend = ansible.hexToBytes("04");
+        var state = ansible.hexToBytes("02");
+        state = ansible.appendBytes(state, toAppend);
+        var result = ansible.getUint8(state, 0);
+        expect(result.isEqualTo(2)).to.equal(true);
+        var result = ansible.getUint8(state, 1);
+        expect(result.isEqualTo(4)).to.equal(true);
+    });
+
 });
