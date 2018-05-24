@@ -226,6 +226,18 @@ var appendAddressArray = function(bytes, addresses) {
     return setAddressArray(bytes, addresses, bytes.length);
 };
 
+// TODO: check carefully that this is secure/works correctly
+// https://github.com/ethereum/web3.js/issues/1490 etc
+function getRandomBytes(size) {
+    var possibles = "1234567890ABCDEF";
+    var hex = "";
+    // two hex digits per byte
+    for (var i = 0; i < size * 2; i++) {
+        hex += possibles[Math.floor(Math.random() * possibles.length)];
+    }
+    return hexToBytes(hex);
+}
+
 // from crypto-js
 function bytesToHex(bytes) {
     var hex = [];
@@ -251,6 +263,7 @@ module.exports = {
     getUint64: getUint64,
     getUint128: getUint128,
     getUint256: getUint256,
+    getUint: getUint256,
     getUint8Array: getUint8Array,
     getUint16Array: getUint16Array,
     getUint32Array: getUint32Array,
@@ -266,12 +279,14 @@ module.exports = {
     setUint64: setUint64,
     setUint128: setUint128,
     setUint256: setUint256,
+    setUint: setUint256,
     setUint8Array: setUint8Array,
     setUint16Array: setUint16Array,
     setUint32Array: setUint32Array,
     setUint64Array: setUint64Array,
     setUint128Array: setUint128Array,
     setUint256Array: setUint256Array,
+    setUintArray: setUint256Array,
     setAddress: setAddress,
     setAddressArray: setAddressArray,
 
@@ -281,16 +296,18 @@ module.exports = {
     appendUint64: appendUint64,
     appendUint128: appendUint128,
     appendUint256: appendUint256,
+    appendUint: appendUint256,
     appendUint8Array: appendUint8Array,
     appendUint16Array: appendUint16Array,
     appendUint32Array: appendUint32Array,
     appendUint64Array: appendUint64Array,
     appendUint128Array: appendUint128Array,
     appendUint256Array: appendUint256Array,
+    appendUintArray: appendUint256Array,
     appendAddress: appendAddress,
     appendAddressArray: appendAddressArray,
 
-
+    getRandomBytes: getRandomBytes,
 
     hexToBytes: hexToBytes,
     bytesToHex: bytesToHex
